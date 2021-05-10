@@ -1,34 +1,24 @@
-package com.namespacermcw.arrestsearch.models
-
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+package com.namespacermcw.arrestsearch.model
 
 data class JailHouse (
-    @SerializedName("status")
-    @Expose
+    @com.squareup.moshi.Json(name = "status")
     var status: Int? = null,
 
-    @SerializedName("next_page")
-    @Expose
+    @com.squareup.moshi.Json(name = "next_page")
     var nextPage: Int? = null,
 
-    @SerializedName("records")
-    @Expose
+    @com.squareup.moshi.Json(name = "records")
     var records: List<Record>? = null,
 
-    @SerializedName("current_page")
-    @Expose
+    @com.squareup.moshi.Json(name = "current_page")
     var currentPage: Int? = null,
 
-    @SerializedName("total_records")
-    @Expose
+    @com.squareup.moshi.Json(name = "total_records")
     var totalRecords: Int? = null,
 
-    @SerializedName("jail")
-    @Expose
+    @com.squareup.moshi.Json(name = "jail")
     var jail: Jail? = null,
 
-    @SerializedName("msg")
-    @Expose
+    @com.squareup.moshi.Json(name = "msg")
     var msg: String? = null
 )

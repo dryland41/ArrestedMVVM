@@ -1,30 +1,21 @@
-package com.namespacermcw.arrestsearch.models
-
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+package com.namespacermcw.arrestsearch.model
 
 class Jail (
-    @SerializedName("city")
-    @Expose
+    @com.squareup.moshi.Json(name = "city")
     var city: String? = null,
 
-    @SerializedName("name")
-    @Expose
+    @com.squareup.moshi.Json(name = "name")
     var name: String? = null,
 
-    @SerializedName("url")
-    @Expose
+    @com.squareup.moshi.Json(name = "url")
     var url: String? = null,
 
-    @SerializedName("address1")
-    @Expose
+    @com.squareup.moshi.Json(name = "address1")
     var address1: String? = null,
 
-    @SerializedName("address2")
-    @Expose
+    @com.squareup.moshi.Json(name = "address2")
     var address2: String? = null,
 
-    @SerializedName("state")
-    @Expose
+    @com.squareup.moshi.Json(name = "state")
     var state: String? = null
 )

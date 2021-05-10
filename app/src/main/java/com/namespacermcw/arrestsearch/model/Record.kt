@@ -1,43 +1,34 @@
-package com.namespacermcw.arrestsearch.models
+package com.namespacermcw.arrestsearch.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 
 @Entity(
     tableName = "records"
 )
 
-data class Record(
+data class Record (
     @PrimaryKey(autoGenerate = true)
     val primaryKey : Int,
 
-    @SerializedName("book_date_formatted")
-    @Expose
+    @com.squareup.moshi.Json(name = "book_date_formatted")
     var bookDateFormatted: String? = null,
 
-    @SerializedName("name")
-    @Expose
+    @com.squareup.moshi.Json(name = "name")
     var name: String? = null,
 
-    @SerializedName("mugshot")
-    @Expose
+    @com.squareup.moshi.Json(name = "mugshot")
     var mugshot: String? = null,
 
-    @SerializedName("book_date")
-    @Expose
+    @com.squareup.moshi.Json(name = "book_date")
     var bookDate: String? = null,
 
-    @SerializedName("charges")
-    @Expose
+    @com.squareup.moshi.Json(name = "charges")
     var charges: List<String>? = null,
 
-    @SerializedName("id")
-    @Expose
+    @com.squareup.moshi.Json(name = "id")
     var id: Int? = null,
 
-    @SerializedName("more_info_url")
-    @Expose
+    @com.squareup.moshi.Json(name = "more_info_url")
     var moreInfoUrl: String? = null
 )

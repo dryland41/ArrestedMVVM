@@ -41,6 +41,9 @@ ext {
     gsonConverterVersion = '2.7.2'
     interceptorVersion = '3.11.0'
     roomVersion = "2.3.0"
+    moshiKotlinVersion = "1.5.0"
+    rxAndroidVersion = "2.1.0"
+    rxJava2Version = "2.2.21"
 }
 
 dependencies {
@@ -67,9 +70,18 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 
-    //For Room + RxJava
+    // For Room + RxJava
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-rxjava2:$roomVersion"
+
+    // RxJava RxAndroid
+    //implementation "io.reactivex.rxjava2:rxjava:$rxJava2Version"
+    //implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+
+    // Moshi
+    //implementation "com.squareup.moshi:moshi-kotlin:$moshiKotlinVersion"
+    //implementation "com.squareup.moshi:moshi-adapters:$moshiKotlinVersion"
 }
