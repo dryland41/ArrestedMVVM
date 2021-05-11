@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     // Enable kapt
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -15,7 +16,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -76,6 +77,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-rxjava2:$roomVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // RxJava RxAndroid
     //implementation "io.reactivex.rxjava2:rxjava:$rxJava2Version"
@@ -84,4 +86,13 @@ dependencies {
     // Moshi
     //implementation "com.squareup.moshi:moshi-kotlin:$moshiKotlinVersion"
     //implementation "com.squareup.moshi:moshi-adapters:$moshiKotlinVersion"
+
+    // Kotlinx
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //MultiDex
+    //implementation 'com.android.support:multidex:1.0.3'
 }
