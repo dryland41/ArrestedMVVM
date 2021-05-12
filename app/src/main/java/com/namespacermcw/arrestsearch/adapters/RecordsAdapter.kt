@@ -1,21 +1,24 @@
 package com.namespacermcw.arrestsearch.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.namespacermcw.arrestsearch.R
+import com.namespacermcw.arrestsearch.databinding.ItemBinding
 import com.namespacermcw.arrestsearch.model.Record
 
 class RecordsAdapter(): RecyclerView.Adapter<RecordsViewHolder>() {
 
     var records: List<Record> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            RecordsViewHolder {
+        val view = ItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return RecordsViewHolder(view)
     }
 
@@ -26,9 +29,15 @@ class RecordsAdapter(): RecyclerView.Adapter<RecordsViewHolder>() {
     override fun onBindViewHolder(holder: RecordsViewHolder, position: Int) {
         return holder.bind(records[position])
     }
-}
 
-class RecordsViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+    fun updateList(newList: List<Record>) {
+        Log.d("_WORK","upDateList was called")
+        this.records = newList
+        notifyDataSetChanged()
+    }
+}
+/*
+class RecordsViewHolder(itemView: @NonNull ItemBinding): RecyclerView.ViewHolder(itemView){
     private val photo:ImageView = itemView.findViewById(R.id.mugshot)
     //private val bookdate:TextView = itemView.findViewById(R.id.bookdate)
     private val charges:TextView = itemView.findViewById(R.id.charges)
@@ -41,4 +50,23 @@ class RecordsViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         info.text = "More Info: "+ record.moreInfoUrl
     }
 
+}
+*/
+class RecordsViewHolder(private val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var arrest: Record
+
+    fun bind(record: Record){
+        arrest = record
+
+        with(binding) {
+            mugshot.apply {
+                Glide.with(itemView)
+                    .load(arrest.mugshot)
+                    .into(this)
+            }
+            charges.text = "Charges: " + record.charges
+            info.text = "More Info: "+ record.moreInfoUrl
+        }
+    }
 }

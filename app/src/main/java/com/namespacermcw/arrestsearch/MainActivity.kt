@@ -12,17 +12,27 @@ import com.namespacermcw.arrestsearch.adapters.RecordsAdapter
 import com.namespacermcw.arrestsearch.api.ApiClient
 import com.namespacermcw.arrestsearch.api.ApiInterface
 import com.namespacermcw.arrestsearch.model.JailHouse
+import com.namespacermcw.arrestsearch.vm.RecordsListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.LifecycleOwner
+import com.namespacermcw.arrestsearch.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel : RecordsListViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this@MainActivity).get(RecordsListViewModel::class.java)
 
         val request = ApiClient.buildService(ApiInterface::class.java)
         val recordsAdapter = RecordsAdapter()
@@ -31,8 +41,24 @@ class MainActivity : AppCompatActivity() {
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
-            //adapter = MoviesAdapter(response.body()!!.results)
             adapter = recordsAdapter
+        }
+
+        with(binding)
+        {
+            btnRecents.apply {
+                setOnClickListener {
+                    Log.d("_DEBUG", "Recents button has been clicked.")
+
+                    viewModel.getRecents().observe(this@MainActivity, Observer { arrestRecords ->
+                        Log.d(
+                            "_DEBUG",
+                            "There are " + arrestRecords.size + " records in the response."
+                        )
+                        recordsAdapter.updateList(arrestRecords)
+                    })
+                }
+            }
         }
 
         btnRecords.apply {
@@ -68,6 +94,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    private val viewModel: MainViewModel by lazy {
+//        return@lazy when {
+//            activity != null -> {
+//                ViewModelProviders.of(activity as FragmentActivity).get(MainViewModel::class.java) // you can either pass activity object
+//            }
+//            else -> {
+//                ViewModelProviders.of(this).get(MainViewModel::class.java) // or pass fragment object, both are not possible at same time.
+//            }
+//        }
+//    }
 
     fun hideSoftKeyboard(activity: Activity) {
         val inputMethodManager: InputMethodManager = activity.getSystemService(
